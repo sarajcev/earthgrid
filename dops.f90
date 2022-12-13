@@ -1,6 +1,6 @@
 ! -------------------------------------------------------------------------------
-!	 Copyright (C) 2006. GPL - General Public Licence
-!	 Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
+!    Copyright (C) 2006. GPL - General Public Licence
+!    Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
 
 !    This program is free software; you can redistribute it and/or modify
 !    it under the terms of the GNU General Public License as published by
@@ -22,18 +22,18 @@
 ! subroutini: otpps
 
 real(8) function dops(u,v)
-	implicit none
-	
-	real(8) u,v
-	real(8) r
-	
-	
-	r = dsqrt(u**2 + v**2)
-	if (u >= 0.d0) then
-		dops = u*dlog(r+u)-r
-	else
-		dops = u*dlog(v**2/(r-u))-r
-	end if
-	
-	return
+    implicit none
+    
+    real(8) u,v
+    real(8) r
+    
+    
+    r = dsqrt(u**2 + v**2)
+    if (u >= 0.d0) then
+        dops = u*dlog(r+u)-r
+    else
+        dops = u*dlog(v**2/(r-u))-r
+    end if
+    
+    return
 end function

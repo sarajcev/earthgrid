@@ -1,6 +1,6 @@
 ! -------------------------------------------------------------------------------
-!	 Copyright (C) 2006. GPL - General Public Licence
-!	 Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
+!    Copyright (C) 2006. GPL - General Public Licence
+!    Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
 
 !    This program is free software; you can redistribute it and/or modify
 !    it under the terms of the GNU General Public License as published by
@@ -18,65 +18,65 @@
 ! -------------------------------------------------------------------------------
 
 !================================================================================
-!			Subroutina koja racuna velicinu H koja predstavlja z koordinatu
-!			donje granicne plohe za svaki sloj n-slojnog modela.
+!           Subroutina koja racuna velicinu H koja predstavlja z koordinatu
+!           donje granicne plohe za svaki sloj n-slojnog modela.
 !================================================================================
 
 !Velicina H skicirana je na donjoj slici:
 
-!		kapa(1)		  h(1)=0	   H(1)=0				zrak
-!		----------------------------------------------------
-!					^			|		|		|       tlo
-!		kapa(2)		| h(2)		|  H(2) |		|
-!					v			v		|		|
-!		--------------------------------|-------|-----------
-!					^					| H(3)	|		
-!					|					|		|
-!		kapa(3)		| h(3)				|		|
-!					v					v		|
-!		----------------------------------------|-----------
-!												|
-!								.				| H(n-1)
-!								.				|
-!								.				|
-!												|
-!		----------------------------------------|-----------
-!					^							|
-!					|							|
-!		kapa(n-1)	| h(n-1)					|
-!					v							v
-!		----------------------------------------------------
+!       kapa(1)       h(1)=0       H(1)=0               zrak
+!       ----------------------------------------------------
+!                   ^           |       |       |       tlo
+!       kapa(2)     | h(2)      |  H(2) |       |
+!                   v           v       |       |
+!       --------------------------------|-------|-----------
+!                   ^                   | H(3)  |       
+!                   |                   |       |
+!       kapa(3)     | h(3)              |       |
+!                   v                   v       |
+!       ----------------------------------------|-----------
+!                                               |
+!                               .               | H(n-1)
+!                               .               |
+!                               .               |
+!                                               |
+!       ----------------------------------------|-----------
+!                   ^                           |
+!                   |                           |
+!       kapa(n-1)   | h(n-1)                    |
+!                   v                           v
+!       ----------------------------------------------------
 
-!		kapa(n)		  h(n)=0					  H(n)=0
+!       kapa(n)       h(n)=0                      H(n)=0
 
 !pri cemu su:
-!	   n - ukupni broj slojeva modela (zrak + viseslojno tlo).
-!	h(i) - debljine pojedinih slojeva n-slojnog modela, [m]. Vektor h ima
-!		   ukupno n elemenata. Ove vrijednosti se zadaju s ulaznim podacima.
-!	H(i) - z koordinata donje grani�e plohe pojedinog i-tog sloja, [m]. Ovaj
-!		   vektor ima ukupno n elemenata, pri cemu je H(1) = 0. H(2) je z
-!		   koordinata prvog sloja, H(3) drugog itd. H(n) je beskonacno ali
-!		   se postavlja na vrijednost nula.
+!      n - ukupni broj slojeva modela (zrak + viseslojno tlo).
+!   h(i) - debljine pojedinih slojeva n-slojnog modela, [m]. Vektor h ima
+!          ukupno n elemenata. Ove vrijednosti se zadaju s ulaznim podacima.
+!   H(i) - z koordinata donje grani�e plohe pojedinog i-tog sloja, [m]. Ovaj
+!          vektor ima ukupno n elemenata, pri cemu je H(1) = 0. H(2) je z
+!          koordinata prvog sloja, H(3) drugog itd. H(n) je beskonacno ali
+!          se postavlja na vrijednost nula.
 !================================================================================
 
 subroutine vektor_H(n,h_sloja,HD)
-	implicit none
+    implicit none
 
-!	Input
-	integer n
-	real(8),dimension(:) :: h_sloja
-!	Output
-	real(8),dimension(:) :: HD
-!	Local variable
-	integer i
+!   Input
+    integer n
+    real(8),dimension(:) :: h_sloja
+!   Output
+    real(8),dimension(:) :: HD
+!   Local variable
+    integer i
 
 
-	!Tijelo funkcije
-	HD(1) = 0.0
-	do i = 2,n-1
-		HD(i) = HD(i-1) + h_sloja(i)
-	end do
-	HD(n) = 0.0
+    !Tijelo funkcije
+    HD(1) = 0.0
+    do i = 2,n-1
+        HD(i) = HD(i-1) + h_sloja(i)
+    end do
+    HD(n) = 0.0
 
-	return
+    return
 end subroutine

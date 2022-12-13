@@ -1,6 +1,6 @@
 ! -------------------------------------------------------------------------------
-!	 Copyright (C) 2006. GPL - General Public Licence
-!	 Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
+!    Copyright (C) 2006. GPL - General Public Licence
+!    Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
 
 !    This program is free software; you can redistribute it and/or modify
 !    it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 ! -------------------------------------------------------------------------------
 
 !================================================================================
-!		Subroutina koja racuna valne konstante (gama) svih slojeva modela
+!       Subroutina koja racuna valne konstante (gama) svih slojeva modela
 !================================================================================
 
 ! Valna konstanta i-tog sloja definirana je na sljedeci nacin:
@@ -45,29 +45,29 @@
 ! ------------------------------------------------------------------------------
 
 subroutine proracun_gama(f,n,kapa,gama)
-	use funkcije
-	implicit none
+    use funkcije
+    implicit none
 
-	real(8) f
-	integer n
-	complex(8),dimension(:) :: kapa
-	complex(8),dimension(:) :: gama
-	!Lokalne varijable
-	real(8) omega
-	real(8),parameter :: pi = 3.141592653589793238d0
-	real(8) mi0
-	real(8) temp
-	complex(8) zemp
-	integer i
+    real(8) f
+    integer n
+    complex(8),dimension(:) :: kapa
+    complex(8),dimension(:) :: gama
+    !Lokalne varijable
+    real(8) omega
+    real(8),parameter :: pi = 3.141592653589793238d0
+    real(8) mi0
+    real(8) temp
+    complex(8) zemp
+    integer i
 
 
-	mi0 = 4.d0*pi*1.e-7
-	omega = 2.d0*pi*f
-	temp = omega*mi0
-	do i = 1,n
-		zemp = dcmplx(0.d0,temp)*kapa(i)
-		gama(i) = zsqrt(zemp)
-	end do
+    mi0 = 4.d0*pi*1.e-7
+    omega = 2.d0*pi*f
+    temp = omega*mi0
+    do i = 1,n
+        zemp = dcmplx(0.d0,temp)*kapa(i)
+        gama(i) = zsqrt(zemp)
+    end do
 
-	return
+    return
 end subroutine

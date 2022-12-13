@@ -1,6 +1,6 @@
 ! -------------------------------------------------------------------------------
-!	 Copyright (C) 2006. GPL - General Public Licence
-!	 Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
+!    Copyright (C) 2006. GPL - General Public Licence
+!    Author: Petar Sarajcev, dipl.ing. (petar.sarajcev@fesb.hr)
 
 !    This program is free software; you can redistribute it and/or modify
 !    it under the terms of the GNU General Public License as published by
@@ -23,58 +23,58 @@
 ! VLASTITA IMPEDANCIJA - NUMERICKI DIO
 
 subroutine sdnivl(gamae,duls,vt,cgdni)
-	use funkcije
-	implicit none
-	
-	complex(8) gamae
-	real(8) duls,vt
-	complex(8) cgdni
-	! Lokalne varijable
-	integer :: ngt = 7
-	real(8),dimension(:),allocatable :: ug,Hug
-	real(8) duls2,u,pds
-	complex(8) cpiugt
-	real(8) x,r
-	complex(8) cfut
-	complex(8),parameter :: one = dcmplx(1.d0,0.d0)
-	integer ig,ii
-	
-	! Opis varijabli:
-	!  gamae - ekvivalentna valna konstanta
-	!  duls - duljina razmatranog segmenta
-	!  vt - radijus razmatranog segmenta (r0)
-	!  cgdni (outpu) - izracunata vrijednost integrala
-	
-	duls2 = duls/2.d0
-	allocate(ug(ngt))
-	allocate(Hug(ngt))
-	call GAUSSK(ngt,ug,Hug)
-	
-	cgdni = dcmplx(0.d0,0.d0)
-	do ig = 1,ngt
-		u = ug(ig)*duls2
-		! Proracun prve Gauss-ove numericke integracije po
-		! segmentu (uz podjelu segmenta na dva dijela)
-		pds = (duls2+u)/2.d0
-		cpiugt = dcmplx(0.d0,0.d0)
-		do ii = 1,ngt
-			x = pds*(1.d0-ug(ii))
-			r = dsqrt(x**2+vt**2)
-			cfut = (cdexp(-gamae*r)-one)/r
-			cpiugt = cpiugt + Hug(ii)*pds*cfut
-		end do
-		pds = (duls2-u)/2.d0
-		do ii = 1,ngt
-			x = pds*(1.d0-ug(ii))
-			r = dsqrt(x**2+vt**2)
-			cfut = (cdexp(-gamae*r)-one)/r
-			cpiugt = cpiugt + Hug(ii)*pds*cfut
-		end do
-		cgdni = cgdni + cpiugt*Hug(ig)*duls2
-	end do
-	
-	deallocate(ug)
-	deallocate(Hug)
+    use funkcije
+    implicit none
+    
+    complex(8) gamae
+    real(8) duls,vt
+    complex(8) cgdni
+    ! Lokalne varijable
+    integer :: ngt = 7
+    real(8),dimension(:),allocatable :: ug,Hug
+    real(8) duls2,u,pds
+    complex(8) cpiugt
+    real(8) x,r
+    complex(8) cfut
+    complex(8),parameter :: one = dcmplx(1.d0,0.d0)
+    integer ig,ii
+    
+    ! Opis varijabli:
+    !  gamae - ekvivalentna valna konstanta
+    !  duls - duljina razmatranog segmenta
+    !  vt - radijus razmatranog segmenta (r0)
+    !  cgdni (outpu) - izracunata vrijednost integrala
+    
+    duls2 = duls/2.d0
+    allocate(ug(ngt))
+    allocate(Hug(ngt))
+    call GAUSSK(ngt,ug,Hug)
+    
+    cgdni = dcmplx(0.d0,0.d0)
+    do ig = 1,ngt
+        u = ug(ig)*duls2
+        ! Proracun prve Gauss-ove numericke integracije po
+        ! segmentu (uz podjelu segmenta na dva dijela)
+        pds = (duls2+u)/2.d0
+        cpiugt = dcmplx(0.d0,0.d0)
+        do ii = 1,ngt
+            x = pds*(1.d0-ug(ii))
+            r = dsqrt(x**2+vt**2)
+            cfut = (cdexp(-gamae*r)-one)/r
+            cpiugt = cpiugt + Hug(ii)*pds*cfut
+        end do
+        pds = (duls2-u)/2.d0
+        do ii = 1,ngt
+            x = pds*(1.d0-ug(ii))
+            r = dsqrt(x**2+vt**2)
+            cfut = (cdexp(-gamae*r)-one)/r
+            cpiugt = cpiugt + Hug(ii)*pds*cfut
+        end do
+        cgdni = cgdni + cpiugt*Hug(ig)*duls2
+    end do
+    
+    deallocate(ug)
+    deallocate(Hug)
 
-	return
+    return
 end subroutine
