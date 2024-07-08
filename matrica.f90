@@ -901,16 +901,10 @@ iso,N,Fr,HD,h,Yuv,Ypv,Yu,Ypp)
     allocate(Au(Ns,2*Ns))
     Au(:,:) = dcmplx(0.d0,0.d0)
     do i = 1,Ns
-        do j = 1,Ns
-            if (i==j) then      
-                Au(i,j) = dcmplx(1.d0,0.d0)
-            end if
-        end do
-        do j = Ns+1,2*Ns
-            if ((i+Ns)==j) then
-                Au(i,j) = dcmplx(-1.d0,0.d0)
-            end if
-        end do
+        Au(i,i) = dcmplx(1.d0,0.d0)
+    end do
+    do j = Ns+1,2*Ns
+        Au(j,j) = dcmplx(-1.d0,0.d0)
     end do
     
     ! RACUNANJE IZRAZA [Yu] = trans([Au])*[Yuv]*[Au] 
@@ -945,16 +939,10 @@ iso,N,Fr,HD,h,Yuv,Ypv,Yu,Ypp)
     allocate(Ap(Nss,2*Nss))
     Ap(:,:) = dcmplx(0.d0,0.d0)
     do i = 1,Nss
-        do j = 1,Nss
-            if (i==j) then
-                Ap(i,j) = dcmplx(0.5d0,0.d0)
-            end if
-        end do
-        do j = Nss+1,2*Nss
-            if ((i+Nss)==j) then
-                Ap(i,j) = dcmplx(0.5d0,0.d0)
-            end if
-        end do
+        Ap(i,i) = dcmplx(0.5d0,0.d0)
+    end do
+    do j = Nss+1,2*Nss
+        Ap(j,j) = dcmplx(0.5d0,0.d0)
     end do
     
     ! RACUNANJE IZRAZA [Yp] = trans([Ap])*[Yp]*[Ap] - BLAS3
